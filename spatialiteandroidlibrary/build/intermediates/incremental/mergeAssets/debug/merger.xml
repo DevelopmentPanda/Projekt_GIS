@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\Maik\Dropbox\Desktop Backup\NewProjekt\MyApplication\spatialiteandroidlibrary\src\main\assets"/></dataSet><dataSet config="debug"><source path="C:\Users\Maik\Dropbox\Desktop Backup\NewProjekt\MyApplication\spatialiteandroidlibrary\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Android\StudioProjects\Projekt_GIS\spatialiteandroidlibrary\src\main\assets"/></dataSet><dataSet config="debug"><source path="C:\Android\StudioProjects\Projekt_GIS\spatialiteandroidlibrary\src\debug\assets"/></dataSet></merger>
