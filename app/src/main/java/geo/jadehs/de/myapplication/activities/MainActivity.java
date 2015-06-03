@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         System.out.println("Olli was here");
-        System.out.println("Ich auch!");
+        System.out.println("Ich auch 2!");
         System.out.println("Olli was here, nochmal");
     }
 
