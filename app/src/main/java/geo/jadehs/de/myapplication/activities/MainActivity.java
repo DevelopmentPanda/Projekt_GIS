@@ -35,6 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.main);
         System.out.println("Olli was here");
         System.out.println("Ich auch!");
+        System.out.println("Olli was here, nochmal");
     }
 
     @Override
