@@ -3,6 +3,7 @@
 /.idea/workspace.xml
 /.idea/libraries
 /.idea/misc.xml
+.idea/gradle.xml
 .DS_Store
 Projekt_GIS.iml
 /build
