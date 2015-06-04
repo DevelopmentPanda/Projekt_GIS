@@ -32,8 +32,6 @@ public class TrackingTable implements iTableColumns {
                     ");";
 
 
-
-
     /**
      * Standard-Sortierreihenfolge für die Tabelle.
      * <br>
