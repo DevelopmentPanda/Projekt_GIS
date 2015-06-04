@@ -29,7 +29,7 @@ import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
  * @author Lemoncog - https://lemonbloggywog.wordpress.com/
  */
 
-public class GeometrySpeicher {
+public class SpatialiteDatabase {
 
 
     private static jsqlite.Database database;
@@ -47,21 +47,8 @@ public class GeometrySpeicher {
 
     private SQLiteStatement insertStmt;
 
-    String[] dbFields;
 
-    int[] dbFieldIDs;
-
-
-    /**
-     * Constructer for JSQLlite to create the table (if not already created).
-     * <p/>
-     * <p/>
-     * <p/>
-     * <p/>
-     * String[] TABLE_FIELDS = { "title" , "people" };
-     */
-
-    public GeometrySpeicher(Context contex) {
+    public SpatialiteDatabase(Context contex) {
 
 
         try {
