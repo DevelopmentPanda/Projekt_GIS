@@ -40,6 +40,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        /*
         if (v.getId() == R.id.btn_install_to_application) {
             try {
                 AssetHelper.CopyAsset(this,
@@ -66,6 +67,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         } else if (v.getId() == R.id.btn_map) {
             //Intent myIntent = new Intent(this, MappingActivity.class);
             //startActivity(myIntent);
+            meineMethode();
+        }
+        */
+        if (v.getId() == R.id.btnForTracking) {
+            System.out.println("Track geklickt");
             meineMethode();
         }
     }

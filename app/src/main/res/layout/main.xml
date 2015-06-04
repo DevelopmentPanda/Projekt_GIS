@@ -1,81 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp" >
+    android:padding="5dp"
+    android:background="#eeeeee">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make automatically Points"
+        android:id="@+id/swtForCreatePoints"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="#0000FF"
+        android:layout_above="@+id/btnForTracking"
+        android:layout_alignLeft="@+id/txtTrackname"
+        android:layout_alignStart="@+id/txtTrackname"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/install_directions"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Trackname:"
+        android:id="@+id/txtTrackname"
+        android:layout_alignBaseline="@+id/edtCreateName"
+        android:layout_alignBottom="@+id/edtCreateName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="24sp"
+        android:clickable="false"
+        android:textColor="#0000FF"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="67dp" />
 
-    <LinearLayout
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:id="@+id/edtCreateName"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_above="@+id/swtForCreatePoints"
+        android:text="Example-Track"
+        android:layout_alignRight="@+id/swtForCreatePoints"
+        android:layout_alignEnd="@+id/swtForCreatePoints"
+        android:textColor="#000000"
+        android:layout_toRightOf="@+id/txtForTrackshow"
+        android:layout_toEndOf="@+id/txtForTrackshow" />
 
-        <Button
-            android:id="@+id/btn_install_to_application"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="@string/install_to_application" />
-
-        <Button
-            android:id="@+id/btn_install_to_external"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="@string/install_to_external" />
-    </LinearLayout>
+    <Spinner
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/txtForTrackshow"
+        android:layout_toEndOf="@+id/txtForTrackshow"
+        android:layout_toRightOf="@+id/txtForTrackshow"
+        android:textAlignment="center"
+        android:transitionGroup="false"
+        android:spinnerMode="dropdown"
+        android:layout_gravity="right"
+        android:layout_alignLeft="@+id/edtCreateName"
+        android:layout_alignStart="@+id/edtCreateName" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/run_description"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Show Track:"
+        android:id="@+id/txtForTrackshow"
+        android:textSize="24sp"
+        android:clickable="false"
+        android:textColor="#0000FF"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/txtTrackname"
+        android:layout_alignEnd="@+id/txtTrackname" />
 
     <Button
-        android:id="@+id/btn_run_tests"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/run_tests" />
+        android:text="Make Track"
+        android:id="@+id/btnForTracking"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#FF0000"
+        android:textSize="24sp"
+        android:singleLine="false"
+        android:clickable="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:longClickable="true"
+        android:onClick="onClick" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/browse_description"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/btn_browse_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/browse_data" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:text="@string/map_view_description"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <Button
-        android:id="@+id/btn_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/map_view" />
-
-</LinearLayout>
+</RelativeLayout>
