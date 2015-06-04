@@ -10,6 +10,7 @@ import android.util.Log;
 import java.io.FileNotFoundException;
 
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
+import jsqlite.*;
 
 import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
 
@@ -35,9 +36,16 @@ public class SpatialiteDatabase {
     private static jsqlite.Database database;
 
 
-    private String dbFile;
+    private static final String TAG = "Spatialite";
+
 
     public static final String DATENBANK_NAME = "spatialite.db";
+
+    // Singleton Variablen
+    public static SpatialiteDatabase sINSTANCE;
+    private static Object sLOCK = "";
+
+    private String dbFile;
 
 
     // weitere Variablen
@@ -48,19 +56,41 @@ public class SpatialiteDatabase {
     private SQLiteStatement insertStmt;
 
 
-    public SpatialiteDatabase(Context contex) {
+    private SpatialiteDatabase(Context contex) {
 
 
         try {
             dbFile = ActivityHelper.getDataBase(context,
                     DATENBANK_NAME);
-        } catch (FileNotFoundException e) {
+            jsqlite.Database db = new jsqlite.Database();
+
+            // eventuell folgenden Zugriff noch in einer Asynchronen Methode auslagern, falls Performanceprobleme auftauchen!
+            db.open(dbFile.toString(), jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
+        } catch (FileNotFoundException | jsqlite.Exception e) {
             e.printStackTrace();
         }
 
-        jsqlite.Database db = new jsqlite.Database();
+
         database.spatialite_create();
 
+
+    }
+
+    public static SpatialiteDatabase getInstance(Context context) {
+        if (sINSTANCE == null) {
+            synchronized (sLOCK) {
+                if (sINSTANCE == null) {
+                    sINSTANCE = new SpatialiteDatabase(context.getApplicationContext());
+                }
+            }
+        }
+        return sINSTANCE;
+
+
+    }
+
+
+    public void createDefaultTable() {
 
     }
 
