@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
+import geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 import jsqlite.*;
 
@@ -54,7 +56,7 @@ public class SpatialiteDatabase {
     private jsqlite.Database db;
 
     private SQLiteStatement insertStmt;
-
+    private Callback cb;
 
     private SpatialiteDatabase(Context contex) {
 
@@ -64,6 +66,7 @@ public class SpatialiteDatabase {
                     DATENBANK_NAME);
             jsqlite.Database db = new jsqlite.Database();
 
+
             // eventuell folgenden Zugriff noch in einer Asynchronen Methode auslagern, falls Performanceprobleme auftauchen!
             db.open(dbFile.toString(), jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
         } catch (FileNotFoundException | jsqlite.Exception e) {
@@ -71,7 +74,8 @@ public class SpatialiteDatabase {
         }
 
 
-        database.spatialite_create();
+        // Woanders einfügen;
+        // database.spatialite_create();
 
 
     }
@@ -91,7 +95,7 @@ public class SpatialiteDatabase {
 
 
     public void createDefaultTable() {
-
+       // db.exec(TrackingTable.SQL_CREATE);
     }
 
 
