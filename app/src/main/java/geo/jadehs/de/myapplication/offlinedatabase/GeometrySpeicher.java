@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
+import java.io.FileNotFoundException;
+
+import geo.jadehs.de.myapplication.utilities.ActivityHelper;
+
 import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
 
 /**
@@ -27,7 +31,13 @@ import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
 
 public class GeometrySpeicher {
 
-    private SpatialiteDatabaseManager spatialiteDB;
+
+    private static jsqlite.Database database;
+
+
+    private String dbFile;
+
+    public static final String DATENBANK_NAME = "spatialite.db";
 
 
     // weitere Variablen
@@ -52,71 +62,21 @@ public class GeometrySpeicher {
      */
 
     public GeometrySpeicher(Context contex) {
-        this.context = context;
 
 
-        dbFields = databaseFields;
+        try {
+            dbFile = ActivityHelper.getDataBase(context,
+                    DATENBANK_NAME);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        OpenHelper openHelper = new OpenHelper(this);
-
-        this.db = openHelper.getWritableDatabase();
-
-        dbFieldIDs = new int[dbFields.length];
-
-        ih = new DatabaseUtils.InsertHelper(db, TABLE_NAME);
+        jsqlite.Database db = new jsqlite.Database();
+        database.spatialite_create();
 
 
     }
 
 
-    public class OpenHelper extends SQLiteOpenHelper
-
-    {
-
-
-        private OfflineDatabaseManager(Context context) {
-
-            super(sqlite.context, DATENBANK_NAME, null, DATENBANK_VERSION);
-
-
-        }
-
-
-        public static GeometrySpeicher getInstance(Context context) {
-            if (sINSTANCE == null) {
-                synchronized (sLOCK) {
-                    if (sINSTANCE == null) {
-                        sINSTANCE = new GeometrySpeicher(context.getApplicationContext());
-                    }
-                }
-            }
-            return sINSTANCE;
-
-
-        }
-
-
-        @Override
-
-        public void onCreate(SQLiteDatabase db) {
-
-            String query = SQL_CREATE;
-
-            db.execSQL(query);
-
-        }
-
-        @Override
-
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-            Log.w("Example", "Upgrading database, this will drop tables and recreate.");
-
-            db.execSQL(SQL_DROP);
-
-            onCreate(db);
-
-        }
-
-    }
 }
+
