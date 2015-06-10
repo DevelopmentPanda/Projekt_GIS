@@ -18,7 +18,8 @@
         android:layout_alignLeft="@+id/txtTrackname"
         android:layout_alignStart="@+id/txtTrackname"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="onClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,7 +45,6 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:layout_above="@+id/swtForCreatePoints"
-        android:text="Example-Track"
         android:layout_alignRight="@+id/swtForCreatePoints"
         android:layout_alignEnd="@+id/swtForCreatePoints"
         android:textColor="#000000"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="false"
         android:layout_alignBottom="@+id/txtForTrackshow"
         android:layout_toEndOf="@+id/txtForTrackshow"
         android:layout_toRightOf="@+id/txtForTrackshow"
@@ -65,7 +65,9 @@
         android:spinnerMode="dropdown"
         android:layout_gravity="right"
         android:layout_alignLeft="@+id/edtCreateName"
-        android:layout_alignStart="@+id/edtCreateName" />
+        android:layout_alignStart="@+id/edtCreateName"
+        android:nestedScrollingEnabled="true"
+        android:longClickable="false" />
 
     <TextView
         android:layout_width="wrap_content"

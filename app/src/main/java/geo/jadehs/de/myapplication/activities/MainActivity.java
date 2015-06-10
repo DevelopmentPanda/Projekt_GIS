@@ -10,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import geo.jadehs.de.myapplication.R;
@@ -28,11 +31,28 @@ import java.util.Arrays;
 public class MainActivity extends Activity implements View.OnClickListener {
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getName();
+    private Switch mySwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        mySwitch = (Switch) findViewById(R.id.swtForCreatePoints);
+        mySwitch.setChecked(true);
+        mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if(isChecked){
+                    System.out.println("Switch is currently ON");
+                }else{
+                    System.out.println("Switch is currently OFF");
+                }
+
+            }
+        });
         System.out.println("Olli was here");
         System.out.println("Ich auch 2!");
         System.out.println("Olli was here, nochmal");
@@ -72,7 +92,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         */
         if (v.getId() == R.id.btnForTracking) {
             System.out.println("Track geklickt");
-            meineMethode();
+        }
+        if (v.getId() == R.id.swtForCreatePoints) {
+            System.out.println("Switch geschaltet");
         }
     }
 
