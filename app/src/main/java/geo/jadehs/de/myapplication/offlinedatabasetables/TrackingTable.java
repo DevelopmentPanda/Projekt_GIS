@@ -25,7 +25,7 @@ public class TrackingTable implements iTableColumns {
      */
     public static final String SQL_CREATE =
             "CREATE TABLE spatialite (" +
-                    "id   INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "trackname TEXT NOT NULL," +
                     "zeitstempel TEXT," +
                     "geschwindigkeit TEXT" +

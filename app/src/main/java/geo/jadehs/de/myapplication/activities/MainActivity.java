@@ -16,10 +16,12 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import geo.jadehs.de.myapplication.R;
+import geo.jadehs.de.myapplication.offlinedatabase.SpatialiteDatabase;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 import geo.jadehs.de.myapplication.utilities.AssetHelper;
 import jsqlite.Callback;
 import jsqlite.Constants;
+import jsqlite.Database;
 import jsqlite.Stmt;
 import jsqlite.TableResult;
 
@@ -32,6 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getName();
     private Switch mySwitch;
+    private SpatialiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void meineMethode() {
+     public void meineMethode() {
 
         Toast.makeText(this, "Meine Methode gestartet", Toast.LENGTH_SHORT).show();
         try {
@@ -206,6 +209,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return sb.toString();
     }
 
+    public void createSpatialiteDatabase() {
+       
+
+    }
 }
 
 
