@@ -13,10 +13,12 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import geo.jadehs.de.myapplication.R;
+import geo.jadehs.de.myapplication.offlinedatabase.SpatialiteDatabase;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 import geo.jadehs.de.myapplication.utilities.AssetHelper;
 import jsqlite.Callback;
 import jsqlite.Constants;
+import jsqlite.Database;
 import jsqlite.Stmt;
 import jsqlite.TableResult;
 
@@ -28,14 +30,13 @@ import java.util.Arrays;
 public class MainActivity extends Activity implements View.OnClickListener {
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getName();
+    private SpatialiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        System.out.println("Olli was here");
-        System.out.println("Ich auch 2!");
-        System.out.println("Olli was here, nochmal");
+
     }
 
     @Override
@@ -76,7 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void meineMethode() {
+     public void meineMethode() {
 
         Toast.makeText(this, "Meine Methode gestartet", Toast.LENGTH_SHORT).show();
         try {
@@ -155,6 +156,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         } catch (Exception e) {
             Toast.makeText(this, "Catch " + e, Toast.LENGTH_LONG).show();
         }
+
     }
 
     public String queryVersions(jsqlite.Database db) throws Exception {
@@ -182,8 +184,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         sb.append("Done...\n");
         return sb.toString();
+
+
     }
 
+    public void createSpatialiteDatabase() {
+       
+
+    }
 }
 
 

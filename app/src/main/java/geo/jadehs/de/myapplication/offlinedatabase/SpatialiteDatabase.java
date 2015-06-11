@@ -13,6 +13,7 @@ import java.util.Arrays;
 import geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 import jsqlite.*;
+import jsqlite.Exception;
 
 import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
 
@@ -33,9 +34,6 @@ import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
  */
 
 public class SpatialiteDatabase {
-
-
-    private static jsqlite.Database database;
 
 
     private static final String TAG = "Spatialite";
@@ -65,10 +63,13 @@ public class SpatialiteDatabase {
             dbFile = ActivityHelper.getDataBase(context,
                     DATENBANK_NAME);
             jsqlite.Database db = new jsqlite.Database();
+            cb = new CallbackClass();
 
 
             // eventuell folgenden Zugriff noch in einer Asynchronen Methode auslagern, falls Performanceprobleme auftauchen!
             db.open(dbFile.toString(), jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
+
+
         } catch (FileNotFoundException | jsqlite.Exception e) {
             e.printStackTrace();
         }
@@ -95,7 +96,13 @@ public class SpatialiteDatabase {
 
 
     public void createDefaultTable() {
-       // db.exec(TrackingTable.SQL_CREATE);
+
+
+        try {
+            db.exec(TrackingTable.SQL_CREATE, cb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
