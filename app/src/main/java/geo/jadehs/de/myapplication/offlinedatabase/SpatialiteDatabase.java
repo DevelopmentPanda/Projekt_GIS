@@ -39,7 +39,7 @@ public class SpatialiteDatabase {
     private static final String TAG = "Spatialite";
 
 
-    public static final String DATENBANK_NAME = "spatialite";
+    public static final String DATENBANK_NAME = "spatialite.db";
 
     // Singleton Variablen
     public static SpatialiteDatabase sINSTANCE;

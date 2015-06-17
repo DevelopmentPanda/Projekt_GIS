@@ -63,9 +63,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-    //    meineMethode();
+  //   meineMethode();
 
-        db = SpatialiteDatabase.getInstance(getApplicationContext());
+       db = SpatialiteDatabase.getInstance(getApplicationContext());
         /*
         if (v.getId() == R.id.btn_install_to_application) {
             try {
@@ -129,7 +129,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             File dir = getFilesDir();
 
-            File spatialDbFile = new File(dir, "test");
+            File spatialDbFile = new File(dir, "test4242");
 
             if(spatialDbFile.exists())
             {

@@ -3,10 +3,13 @@ package geo.jadehs.de.myapplication.utilities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import geo.jadehs.de.myapplication.R;
 
@@ -23,6 +26,8 @@ public class ActivityHelper {
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Dismiss",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+
+
                         // Do nothing
                     }
                 });
@@ -30,15 +35,31 @@ public class ActivityHelper {
     }
 
     static public String getDataBase(Context ctx, String filename) throws FileNotFoundException {
+
+
+
         File db = null;
 
+        File directory = getAlbumStorageDir(ctx,"database");
+
+        File bla = new File(directory, filename);
+
+        if(bla.exists())
+
+        {            System.out.println("JHUHUHUHUHUHUHHU");
 
 
+        }
 
-        // Check application storage first
         db = new File(getPath(ctx, false), filename);
-       System.out.println( db.getAbsolutePath());
+
+        File ff = new File(ctx.getExternalFilesDir(null), filename);
+        if(ff.exists())
+        {
+            System.out.println("File ff auf externen Speicher geschrieben");
+        }
         Log.d(TAG, "Checking: " + db.toString());
+
         if (db.exists()) {
             return db.toString();
         }
@@ -60,5 +81,15 @@ public class ActivityHelper {
         } else {
             return ctx.getFilesDir();
         }
+    }
+
+   static public File getAlbumStorageDir(Context context, String albumName) {
+        // Get the directory for the app's private pictures directory.
+        File file = new File(context.getExternalFilesDir(
+                Environment.DIRECTORY_DOCUMENTS), albumName);
+        if (!file.mkdirs()) {
+            Log.e(TAG, "Directory not created");
+        }
+        return file;
     }
 }
