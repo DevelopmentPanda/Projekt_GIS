@@ -39,7 +39,7 @@ public class SpatialiteDatabase {
     private static final String TAG = "Spatialite";
 
 
-    public static final String DATENBANK_NAME = "spatialite.db";
+    public static final String DATENBANK_NAME = "spatialite";
 
     // Singleton Variablen
     public static SpatialiteDatabase sINSTANCE;
@@ -62,13 +62,13 @@ public class SpatialiteDatabase {
         try {
             db = new jsqlite.Database();
 
-            dbFile = ActivityHelper.getDataBase(context,
+            dbFile = ActivityHelper.getDataBase(con,
                     DATENBANK_NAME);
             cb = new CallbackClass();
 
 
             // eventuell folgenden Zugriff noch in einer Asynchronen Methode auslagern, falls Performanceprobleme auftauchen!
-            db.open(dbFile.toString(), jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
+            db.open(dbFile, jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
             createDefaultTable();
 
 
@@ -78,7 +78,7 @@ public class SpatialiteDatabase {
         }
 
 
-        // Woanders einfügen;
+        // Woanders einfuegen;
         // database.spatialite_create();
 
 

@@ -32,8 +32,12 @@ public class ActivityHelper {
     static public String getDataBase(Context ctx, String filename) throws FileNotFoundException {
         File db = null;
 
+
+
+
         // Check application storage first
         db = new File(getPath(ctx, false), filename);
+       System.out.println( db.getAbsolutePath());
         Log.d(TAG, "Checking: " + db.toString());
         if (db.exists()) {
             return db.toString();

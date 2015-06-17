@@ -33,7 +33,7 @@ public class TrackingTable implements iTableColumns {
 
 
     /**
-     * Standard-Sortierreihenfolge für die Tabelle.
+     * Standard-Sortierreihenfolge fuer die Tabelle.
      * <br>
      * Sortiert wird nach Zeitstempel absteigend.
      */

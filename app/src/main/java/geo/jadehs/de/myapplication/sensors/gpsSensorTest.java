@@ -16,9 +16,9 @@ import geo.jadehs.de.myapplication.R;
  *
  *
  * Permissions
- * Damit der Code auch genutzt werden kann, müssen noch Permissions im Manifest-Files gesetzt werden.
+ * Damit der Code auch genutzt werden kann, muessen noch Permissions im Manifest-Files gesetzt werden.
  *
- * Für die Positionierung per GPS:
+ * Fuer die Positionierung per GPS:
  *
  * <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
  *
@@ -27,7 +27,7 @@ import geo.jadehs.de.myapplication.R;
 public class gpsSensorTest {
 
     /**
-     * Context : Übergebener Context aus dem Konstruktor
+     * Context : Uebergebener Context aus dem Konstruktor
      */
 
     Context context;

@@ -48,9 +48,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
 
-                if(isChecked){
+                if (isChecked) {
                     System.out.println("Switch is currently ON");
-                }else{
+                } else {
                     System.out.println("Switch is currently OFF");
                 }
 
@@ -63,9 +63,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        meineMethode();
+    //    meineMethode();
 
-     //  db = SpatialiteDatabase.getInstance(getApplicationContext());
+        db = SpatialiteDatabase.getInstance(getApplicationContext());
         /*
         if (v.getId() == R.id.btn_install_to_application) {
             try {
@@ -104,7 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-     public void meineMethode() {
+    public void meineMethode() {
 
         Toast.makeText(this, "Meine Methode gestartet", Toast.LENGTH_SHORT).show();
         try {
@@ -126,11 +126,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
             Toast.makeText(this, "vor dem open", Toast.LENGTH_LONG).show();
             // Open the database
-            File f;
-            File dir = getFilesDir();
-            File spatialDbFile = new File(dir,"test");
 
-           System.out.println(spatialDbFile.getAbsolutePath()) ;
+            File dir = getFilesDir();
+
+            File spatialDbFile = new File(dir, "test");
+
+            if(spatialDbFile.exists())
+            {
+                System.out.println("Datei exisitiert!");
+            }
+
+            System.out.println(spatialDbFile.getAbsolutePath() );
+            System.out.println(spatialDbFile.getAbsolutePath());
             jsqlite.Database db = new jsqlite.Database();
 
             db.open(spatialDbFile.getAbsolutePath(), jsqlite.Constants.SQLITE_OPEN_READWRITE | jsqlite.Constants.SQLITE_OPEN_CREATE);
@@ -223,7 +230,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void createSpatialiteDatabase() {
-       
+
 
     }
 }
