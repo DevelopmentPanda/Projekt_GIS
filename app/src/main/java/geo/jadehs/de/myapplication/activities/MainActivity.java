@@ -63,6 +63,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        db = SpatialiteDatabase.getInstance(getApplicationContext());
         /*
         if (v.getId() == R.id.btn_install_to_application) {
             try {

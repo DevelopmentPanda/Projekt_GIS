@@ -56,13 +56,13 @@ public class SpatialiteDatabase {
     private SQLiteStatement insertStmt;
     private Callback cb;
 
-    private SpatialiteDatabase(Context contex) {
-
+    private SpatialiteDatabase(Context con) {
+    context = con;
 
         try {
             dbFile = ActivityHelper.getDataBase(context,
                     DATENBANK_NAME);
-            jsqlite.Database db = new jsqlite.Database();
+            db = new jsqlite.Database();
             cb = new CallbackClass();
 
 
@@ -85,7 +85,7 @@ public class SpatialiteDatabase {
         if (sINSTANCE == null) {
             synchronized (sLOCK) {
                 if (sINSTANCE == null) {
-                    sINSTANCE = new SpatialiteDatabase(context.getApplicationContext());
+                    sINSTANCE = new SpatialiteDatabase(context);
                 }
             }
         }
