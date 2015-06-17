@@ -63,8 +63,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        meineMethode();
 
-        db = SpatialiteDatabase.getInstance(getApplicationContext());
+     //  db = SpatialiteDatabase.getInstance(getApplicationContext());
         /*
         if (v.getId() == R.id.btn_install_to_application) {
             try {
@@ -110,23 +111,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String dbFile;
             try {
                 // Find the database
-                dbFile = ActivityHelper.getDataBase(this,
-                        getString(R.string.test_db));
+                //dbFile = ActivityHelper.getDataBase(this,
+                //        getString(R.string.test_db));
                 /**
                  * TODO - wenn String = unknown error in open...
                  * wenn Activity helper FoleNot Found Exception
                  */
+                Toast.makeText(this, "bin in try", Toast.LENGTH_LONG).show();
+
             } catch (Exception e) {
                 ActivityHelper.showAlert(this,
                         getString(R.string.error_locate_failed));
                 throw e;
             }
-
+            Toast.makeText(this, "vor dem open", Toast.LENGTH_LONG).show();
             // Open the database
+            File f;
+            File dir = getFilesDir();
+            File spatialDbFile = new File(dir,"test");
+
+           System.out.println(spatialDbFile.getAbsolutePath()) ;
             jsqlite.Database db = new jsqlite.Database();
-            db.open(dbFile.toString(), jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
+
+            db.open(spatialDbFile.getAbsolutePath(), jsqlite.Constants.SQLITE_OPEN_READWRITE | jsqlite.Constants.SQLITE_OPEN_CREATE);
+            Toast.makeText(this, "nach open", Toast.LENGTH_LONG).show();
             db.spatialite_create();
             Toast.makeText(this, "DB erstellt und oder geoeffnet", Toast.LENGTH_LONG).show();
+            queryVersions(db);
 
 
             /**String test = "CREATE TABLE Testtabelle2 " +

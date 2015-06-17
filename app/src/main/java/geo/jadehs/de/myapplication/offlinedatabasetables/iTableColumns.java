@@ -16,5 +16,13 @@ public interface iTableColumns {
 
     String GESCHWINDIGKEIT = "geschwindigkeit";
 
+    String GPSPOSITION = "gpsposition";
+
+    String ACCELERATION_X_AXIS = "acceleration_x_axis";
+
+    String ACCELERATION_Y_AXIS = "acceleration_y_axis";
+
+    String ACCELERATION_Z_AXIS = "acceleration_z_axis";
+
 
 }

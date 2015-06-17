@@ -89,4 +89,12 @@ public class TrackingTable implements iTableColumns {
             ID + "=?";
 
 
+    /**
+     * Create Spatialite Columns
+     */
+
+    public static final String CREATE_SPATIALITE_COLUMN =
+            "SELECT AddGeometryColumn(" + TABLE_NAME + "," + GPSPOSITION + "," + "4258" + "," + "POINT, XY);";
+
+
 }

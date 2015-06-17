@@ -60,14 +60,17 @@ public class SpatialiteDatabase {
     context = con;
 
         try {
+            db = new jsqlite.Database();
+
             dbFile = ActivityHelper.getDataBase(context,
                     DATENBANK_NAME);
-            db = new jsqlite.Database();
             cb = new CallbackClass();
 
 
             // eventuell folgenden Zugriff noch in einer Asynchronen Methode auslagern, falls Performanceprobleme auftauchen!
             db.open(dbFile.toString(), jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
+            createDefaultTable();
+
 
 
         } catch (FileNotFoundException | jsqlite.Exception e) {
@@ -95,7 +98,7 @@ public class SpatialiteDatabase {
     }
 
 
-    public void createDefaultTable() {
+     private void createDefaultTable() {
 
 
         try {
@@ -104,6 +107,22 @@ public class SpatialiteDatabase {
             e.printStackTrace();
         }
     }
+
+    private void createSpatialiteColumns()
+    {
+        db.spatialite_create();
+        try {
+            db.exec(TrackingTable.CREATE_SPATIALITE_COLUMN, cb);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
 
 
 }
