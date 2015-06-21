@@ -40,27 +40,23 @@ public class ActivityHelper {
 
         File db = null;
 
-        File directory = getAlbumStorageDir(ctx,"database");
-
-        File bla = new File(directory, filename);
-
-        if(bla.exists())
-
-        {            System.out.println("JHUHUHUHUHUHUHHU");
 
 
-        }
+
 
         db = new File(getPath(ctx, false), filename);
 
-        File ff = new File(ctx.getExternalFilesDir(null), filename);
-        if(ff.exists())
-        {
-            System.out.println("File ff auf externen Speicher geschrieben");
+        try {
+            db.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         Log.d(TAG, "Checking: " + db.toString());
 
         if (db.exists()) {
+            System.out.println("File db in Speicher geschrieben");
+
             return db.toString();
         }
 
