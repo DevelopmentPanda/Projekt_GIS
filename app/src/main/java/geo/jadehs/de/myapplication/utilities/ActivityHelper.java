@@ -37,17 +37,14 @@ public class ActivityHelper {
     static public String getDataBase(Context ctx, String filename) throws FileNotFoundException {
 
 
-
         File db = null;
-
-
-
 
 
         db = new File(getPath(ctx, false), filename);
 
         try {
-            db.createNewFile();
+           boolean created = db.createNewFile();
+            System.out.println("Datenbankdatei bereits vorhanden wurde neu erstell?: "+created);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,13 +76,4 @@ public class ActivityHelper {
         }
     }
 
-   static public File getAlbumStorageDir(Context context, String albumName) {
-        // Get the directory for the app's private pictures directory.
-        File file = new File(context.getExternalFilesDir(
-                Environment.DIRECTORY_DOCUMENTS), albumName);
-        if (!file.mkdirs()) {
-            Log.e(TAG, "Directory not created");
-        }
-        return file;
-    }
 }

@@ -57,7 +57,7 @@ public class SpatialiteDatabase {
     private Callback cb;
 
     private SpatialiteDatabase(Context con) {
-    context = con;
+        context = con;
 
         try {
             db = new jsqlite.Database();
@@ -69,17 +69,20 @@ public class SpatialiteDatabase {
 
             // eventuell folgenden Zugriff noch in einer Asynchronen Methode auslagern, falls Performanceprobleme auftauchen!
             db.open(dbFile, jsqlite.Constants.SQLITE_OPEN_READWRITE | Constants.SQLITE_OPEN_CREATE);
-            createDefaultTable();
 
+            db.exec("select initspatialmetadata();", cb);
+
+            System.out.println("DB Version:" + db.dbversion());
+
+
+            createDefaultTable();
+            createSpatialiteColumns();
+            insertSMT("Track1", "Speed", "zeit", 2, 3);
 
 
         } catch (FileNotFoundException | jsqlite.Exception e) {
             e.printStackTrace();
         }
-
-
-        // Woanders einfuegen;
-        // database.spatialite_create();
 
 
     }
@@ -98,9 +101,10 @@ public class SpatialiteDatabase {
     }
 
 
-     private void createDefaultTable() {
+    private void createDefaultTable() {
 
 
+        System.out.println(SQL_CREATE);
         try {
             db.exec(TrackingTable.SQL_CREATE, cb);
         } catch (Exception e) {
@@ -108,9 +112,11 @@ public class SpatialiteDatabase {
         }
     }
 
-    private void createSpatialiteColumns()
-    {
+    private void createSpatialiteColumns() {
+        System.out.println(CREATE_SPATIALITE_COLUMN);
+
         db.spatialite_create();
+
         try {
             db.exec(TrackingTable.CREATE_SPATIALITE_COLUMN, cb);
 
@@ -119,10 +125,20 @@ public class SpatialiteDatabase {
         }
 
 
-
     }
 
+    private void insertSMT(String trackname, String speed, String timestamp, double lat, double lon) {
 
+
+        try {
+            System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + 1.01 + " " + 2.02 + ")', " + 4258 + "));");
+            db.exec(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + 1.01 + " " + 2.02 + ")', " + 4258 + "));", cb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    ;
 
 
 }

@@ -23,9 +23,11 @@ public class TrackingTable implements iTableColumns {
     /**
      * SQL Anweisung zur Schemadefinition.
      */
+
+
     public static final String SQL_CREATE =
-            "CREATE TABLE spatialite (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
+                    "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "trackname TEXT NOT NULL," +
                     "zeitstempel TEXT," +
                     "geschwindigkeit TEXT" +
@@ -53,10 +55,10 @@ public class TrackingTable implements iTableColumns {
      * SQL Anweisung f&uuml;r Erzeugung eines OfflineTrees
      * aus den Stammdaten Name, Laengengrad, Breitengrad.
      */
-    public static final String STMT_OFFLINE_TREE_INSERT =
-            "INSERT INTO spatialite " +
-                    "(name,laengengrad,breitengrad,zeitstempel) " +
-                    "VALUES (?,?,?,?)";
+    public static final String STMT_INSERT_TRACK =
+            "INSERT INTO " + TABLE_NAME +
+                    "(trackname,zeitstempel,geschwindigkeit,"+GPSPOSITION+ ")" +
+                    "VALUES";
 
     /**
      * SQL-Anweisung zur L&ouml;schung aller OfflineTrees.
@@ -94,7 +96,7 @@ public class TrackingTable implements iTableColumns {
      */
 
     public static final String CREATE_SPATIALITE_COLUMN =
-            "SELECT AddGeometryColumn(" + TABLE_NAME + "," + GPSPOSITION + "," + "4258" + "," + "POINT, XY);";
+            "SELECT AddGeometryColumn(" + "'"+ TABLE_NAME +"'"+ "," + "'"+GPSPOSITION +"'"+ "," + 4258 + "," + "'"+"POINT"+ "'"+","+ 2 +","+ 0 +");";
 
 
 }
