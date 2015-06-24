@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.0'
-    compile project (":spatialiteandroidlibrary")
+    compile project(':spatialiteandroidlibrary')
+    compile files('libs/jts-1.12.jar')
 }

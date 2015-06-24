@@ -1,19 +1,18 @@
 package geo.jadehs.de.myapplication.offlinedatabase;
 
 import android.content.Context;
-import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
+
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 import geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 import jsqlite.*;
 import jsqlite.Exception;
+import com.vividsolutions.jts.geom.*;
+
 
 import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
 
@@ -39,7 +38,7 @@ public class SpatialiteDatabase {
     private static final String TAG = "Spatialite";
 
 
-    public static final String DATENBANK_NAME = "spatialite.db";
+    public static final String DATENBANK_NAME = "spatialite.sqlite";
 
     // Singleton Variablen
     public static SpatialiteDatabase sINSTANCE;
@@ -78,6 +77,7 @@ public class SpatialiteDatabase {
             createDefaultTable();
             createSpatialiteColumns();
             insertSMT("Track1", "Speed", "zeit", 2, 3);
+            getSomeShit();
 
 
         } catch (FileNotFoundException | jsqlite.Exception e) {
@@ -96,6 +96,31 @@ public class SpatialiteDatabase {
             }
         }
         return sINSTANCE;
+
+
+    }
+
+    private void getSomeShit() throws Exception {
+
+        Stmt stmt = null;
+        try {
+            stmt = db
+                    .prepare("SELECT * FROM trackingtable;");
+
+            while (stmt.step()) {
+                String tableName = stmt.column_string(0);
+                String type = stmt.column_string(1);
+                String srid = stmt.column_string(2);
+              Geometry mygeometry;
+
+                System.out.println(tableName + " ....." + type + "......" + srid);
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -131,8 +156,8 @@ public class SpatialiteDatabase {
 
 
         try {
-            System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + 1.01 + " " + 2.02 + ")', " + 4258 + "));");
-            db.exec(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + 1.01 + " " + 2.02 + ")', " + 4258 + "));", cb);
+            System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));");
+            db.exec(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));", cb);
         } catch (Exception e) {
             e.printStackTrace();
         }

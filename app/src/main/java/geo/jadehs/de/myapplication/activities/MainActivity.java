@@ -1,15 +1,12 @@
 package geo.jadehs.de.myapplication.activities;
 
 import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-import android.app.Activity;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
@@ -18,16 +15,16 @@ import android.widget.Toast;
 import geo.jadehs.de.myapplication.R;
 import geo.jadehs.de.myapplication.offlinedatabase.SpatialiteDatabase;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
-import geo.jadehs.de.myapplication.utilities.AssetHelper;
+
 import jsqlite.Callback;
-import jsqlite.Constants;
-import jsqlite.Database;
+
 import jsqlite.Stmt;
 import jsqlite.TableResult;
 
-import java.sql.*;
+
 import java.io.File;
 import java.util.Arrays;
+
 
 
 public class MainActivity extends Activity implements View.OnClickListener {

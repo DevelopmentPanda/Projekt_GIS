@@ -15,6 +15,8 @@ import jsqlite.Callback;
 import jsqlite.Constants;
 import jsqlite.Stmt;
 
+
+
 /**
  * Created by Maik on 13.05.2015.
  */
