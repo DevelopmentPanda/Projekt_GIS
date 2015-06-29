@@ -101,12 +101,12 @@
         android:longClickable="true"
         android:onClick="onClick" />
 
-    <com.google.android.gms.maps.MapView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <fragment
         android:id="@+id/mapView"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/edtCreateName"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/swtForCreatePoints"
         android:layout_below="@+id/spinner" />
 
 </RelativeLayout>

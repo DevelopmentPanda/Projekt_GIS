@@ -12,6 +12,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+
 import geo.jadehs.de.myapplication.R;
 import geo.jadehs.de.myapplication.offlinedatabase.SpatialiteDatabase;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
@@ -25,6 +28,8 @@ import jsqlite.TableResult;
 import java.io.File;
 import java.util.Arrays;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -32,6 +37,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
     private Switch mySwitch;
     private SpatialiteDatabase db;
+    GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +59,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }
         });
-        System.out.println("Olli was here");
-        System.out.println("Ich auch 2!");
-        System.out.println("Olli was here, nochmal");
+        createMapView();
+        addMarker();
+
+
     }
 
     @Override
     public void onClick(View v) {
-  //   meineMethode();
+        //   meineMethode();
 
-       db = SpatialiteDatabase.getInstance(getApplicationContext());
+        db = SpatialiteDatabase.getInstance(getApplicationContext());
         /*
         if (v.getId() == R.id.btn_install_to_application) {
             try {
@@ -101,6 +108,48 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * Initialises the mapview
+     */
+    private void createMapView() {
+        /**
+         * Catch the null pointer exception that
+         * may be thrown when initialising the map
+         */
+        try {
+            if (null == googleMap) {
+                googleMap = ((MapFragment) getFragmentManager().findFragmentById(
+                        R.id.mapView)).getMap();
+
+                /**
+                 * If the map is still null after attempted initialisation,
+                 * show an error to the user
+                 */
+                if (null == googleMap) {
+                    Toast.makeText(getApplicationContext(),
+                            "Error creating map", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } catch (NullPointerException exception) {
+            Log.e("mapApp", exception.toString());
+        }
+    }
+
+    /**
+     * Adds a marker to the map
+     */
+    private void addMarker() {
+
+        /** Make sure that the map has been initialised **/
+        if (null != googleMap) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(0, 0))
+                            .title("Marker")
+                            .draggable(true)
+            );
+        }
+    }
+
     public void meineMethode() {
 
         Toast.makeText(this, "Meine Methode gestartet", Toast.LENGTH_SHORT).show();
@@ -128,12 +177,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             File spatialDbFile = new File(dir, "test4242");
 
-            if(spatialDbFile.exists())
-            {
+            if (spatialDbFile.exists()) {
                 System.out.println("Datei exisitiert!");
             }
 
-            System.out.println(spatialDbFile.getAbsolutePath() );
+            System.out.println(spatialDbFile.getAbsolutePath());
             System.out.println(spatialDbFile.getAbsolutePath());
             jsqlite.Database db = new jsqlite.Database();
 
