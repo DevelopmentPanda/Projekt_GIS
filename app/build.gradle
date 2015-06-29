@@ -23,4 +23,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.0'
     compile project(':spatialiteandroidlibrary')
     compile files('libs/jts-1.12.jar')
+    compile 'com.google.android.gms:play-services:7.5.0'
 }

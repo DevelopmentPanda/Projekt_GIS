@@ -101,4 +101,12 @@
         android:longClickable="true"
         android:onClick="onClick" />
 
+    <com.google.android.gms.maps.MapView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/mapView"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/edtCreateName"
+        android:layout_below="@+id/spinner" />
+
 </RelativeLayout>
