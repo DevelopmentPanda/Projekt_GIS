@@ -14,6 +14,7 @@ import jsqlite.Exception;
 import com.vividsolutions.jts.geom.*;
 
 
+
 import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
 
 /**
