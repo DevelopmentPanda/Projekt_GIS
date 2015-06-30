@@ -51,7 +51,7 @@
 
 
 
+        <service android:name=".services.LocationService" android:process=":my_locationservice" />
 
     </application>
-
 </manifest>
