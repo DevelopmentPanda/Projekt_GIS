@@ -15,9 +15,11 @@ import android.util.Log;
 import android.view.View;
 
 
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 
 import android.widget.Toast;
@@ -48,6 +50,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private EditText edtCreateName;
     private SpatialiteDatabase db;
     GoogleMap googleMap;
+
+
 
     // AB HIER TEST TEST TEST
 
@@ -117,6 +121,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         edtCreateName = (EditText) findViewById(R.id.edtCreateName);
         mySwitch = (Switch) findViewById(R.id.swtForCreatePoints);
         mySwitch.setChecked(false);
+
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, db.getTrackStringArray());
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+
+        Spinner spin = (Spinner) findViewById(R.id.spinner1);
+
+        System.out.println("SPINNER:::::" +spin);
+       spin.setAdapter(adapter);
+
         mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override

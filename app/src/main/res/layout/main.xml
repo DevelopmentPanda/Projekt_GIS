@@ -51,24 +51,6 @@
         android:layout_toRightOf="@+id/txtForTrackshow"
         android:layout_toEndOf="@+id/txtForTrackshow" />
 
-    <Spinner
-        android:layout_width="149dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false"
-        android:layout_alignBottom="@+id/txtForTrackshow"
-        android:layout_toEndOf="@+id/txtForTrackshow"
-        android:layout_toRightOf="@+id/txtForTrackshow"
-        android:textAlignment="center"
-        android:transitionGroup="false"
-        android:spinnerMode="dropdown"
-        android:layout_gravity="right"
-        android:layout_alignLeft="@+id/edtCreateName"
-        android:layout_alignStart="@+id/edtCreateName"
-        android:nestedScrollingEnabled="true"
-        android:longClickable="false" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,7 +88,16 @@
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/spinner"
-        android:layout_above="@+id/edtCreateName" />
+        android:layout_above="@+id/edtCreateName"
+        android:layout_below="@+id/spinner1" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner1"
+        android:layout_alignTop="@+id/txtForTrackshow"
+        android:layout_toRightOf="@+id/txtForTrackshow"
+        android:layout_toEndOf="@+id/txtForTrackshow"
+        android:layout_alignBottom="@+id/txtForTrackshow" />
 
 </RelativeLayout>

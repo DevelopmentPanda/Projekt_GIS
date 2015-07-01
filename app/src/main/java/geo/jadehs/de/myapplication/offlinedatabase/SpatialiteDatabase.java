@@ -2,11 +2,13 @@ package geo.jadehs.de.myapplication.offlinedatabase;
 
 import android.content.Context;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 import android.widget.Toast;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
@@ -102,12 +104,36 @@ public class SpatialiteDatabase {
 
     }
 
+    public ArrayList<String> getTrackStringArray() {
+
+        ArrayList<String> result = new ArrayList<String>();
+
+        try {
+            Stmt stmt = db
+                    .prepare("SELECT DISTINCT trackname FROM trackingtable;");
+
+            while (stmt.step()) {
+
+                result.add(stmt.column_string(0));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
+
+
+    }
+
     public Stmt getTrackPoints(String trackname) {
         Stmt result = null;
 
         try {
             result = db
-                    .prepare("SELECT X(gpsposition), Y(gpsposition) FROM trackingtable WHERE trackname = '"+ trackname+"' ;");
+                    .prepare("SELECT X(gpsposition), Y(gpsposition) FROM trackingtable WHERE trackname = '" + trackname + "' ;");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,8 +216,6 @@ public class SpatialiteDatabase {
             e.printStackTrace();
         }
     }
-
-    ;
 
 
 }
