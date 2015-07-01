@@ -161,6 +161,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         if (v.getId() == R.id.btnForTracking) {
             System.out.println("Track geklickt");
+            db.getSomeShit();
+
         }
         if (v.getId() == R.id.swtForCreatePoints) {
 

@@ -102,22 +102,36 @@ public class SpatialiteDatabase {
 
     }
 
+    public Stmt getTrackPoints(String trackname) {
+        Stmt result = null;
+        
+        return result;
+    }
+
     // Testmethode zum Ausgeben von vorhandenen Datenbankeintraegen
-    private void getSomeShit() throws Exception {
+    public void getSomeShit() {
 
         Stmt stmt = null;
         try {
             stmt = db
-                    .prepare("SELECT * FROM trackingtable;");
+                    .prepare("SELECT id,zeitstempel,geschwindigkeit, AsText(gpsposition), X(gpsposition), Y(gpsposition) FROM trackingtable WHERE trackname = 'Demotrack' ;");
 
             while (stmt.step()) {
                 String tableName = stmt.column_string(0);
-                String type = stmt.column_string(1);
-                String srid = stmt.column_string(2);
+                String timeStamp = stmt.column_string(1);
+                String speed = stmt.column_string(2);
+                String gps = stmt.column_string(3);
+                String x = stmt.column_string(4);
+                String y = stmt.column_string(5);
+
+
+                //String srid = stmt.column_string(2);
+
+
                 Geometry mygeometry;
 
-                System.out.println(tableName + " ....." + type + "......" + srid);
-
+                System.out.println(tableName + " ....." + timeStamp + "......" + speed + "......." + gps + "...." + x + "....." + y);
+                System.out.println(tableName);
             }
 
 
@@ -159,7 +173,7 @@ public class SpatialiteDatabase {
 
 
         try {
-         //   System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));");
+            //   System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));");
 
             db.exec(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));", cb);
             Toast.makeText(context, "Punkt in DB gespeichert!!!" +

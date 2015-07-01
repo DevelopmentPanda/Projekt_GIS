@@ -72,7 +72,7 @@ public class TrackingTable implements iTableColumns {
      */
     public static final String STMT_OFFLINE_TREE_DELETE_BY_ID =
             "DELETE spatialite " +
-                    "WHERE _id = ?";
+                    "WHERE id = ?";
 
     /**
      * Liste aller bekannten Attribute.

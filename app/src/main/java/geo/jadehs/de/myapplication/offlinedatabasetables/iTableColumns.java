@@ -5,7 +5,7 @@ package geo.jadehs.de.myapplication.offlinedatabasetables;
  */
 public interface iTableColumns {
 
-    String ID = "_id";
+    String ID = "id";
 
 
     String TRACKNAME = "trackname";
