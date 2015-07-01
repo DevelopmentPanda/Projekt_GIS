@@ -7,18 +7,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
+
 import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
+
+
 import android.util.Log;
 import android.view.View;
 
 
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -46,7 +47,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getName();
     private Switch mySwitch;
-    private SpatialiteDatabase db;
+    private EditText edtCreateName;
+    private  SpatialiteDatabase db;
     GoogleMap googleMap;
 
     // AB HIER TEST TEST TEST
@@ -89,8 +91,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // class name because we want a specific service implementation that
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
-        bindService(new Intent(this,
-                LocationService.class), mConnection, Context.BIND_AUTO_CREATE);
+        Intent i = new Intent(this,LocationService.class);
+        i.putExtra("Trackname", edtCreateName.getText().toString());
+
+        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
 
         mIsBound = true;
     }
@@ -109,7 +113,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = SpatialiteDatabase.getInstance(getApplicationContext());
+
         setContentView(R.layout.main);
+        edtCreateName = (EditText) findViewById(R.id.edtCreateName);
         mySwitch = (Switch) findViewById(R.id.swtForCreatePoints);
         mySwitch.setChecked(false);
         mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -120,7 +127,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 if (isChecked) {
                     System.out.println("Switch is currently ON");
-                    doBindService();
+                    if(!edtCreateName.getText().toString().isEmpty()) {
+                        doBindService();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"Bitte Tracknamen eingeben", Toast.LENGTH_SHORT).show();
+                        mySwitch.setChecked(false);
+                    }
 
 
                 } else {
@@ -146,42 +159,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
 
 
-        db = SpatialiteDatabase.getInstance(getApplicationContext());
-
-        /*
-        if (v.getId() == R.id.btn_install_to_application) {
-            try {
-                AssetHelper.CopyAsset(this,
-                        ActivityHelper.getPath(this, false),
-                        getString(R.string.test_db));
-            } catch (IOException e) {
-                ActivityHelper.showAlert(this,
-                        getString(R.string.error_copy_failed));
-            }
-        } else if (v.getId() == R.id.btn_install_to_external) {
-            try {
-                AssetHelper.CopyAsset(this, ActivityHelper.getPath(this, true),
-                        getString(R.string.test_db));
-            } catch (IOException e) {
-                ActivityHelper.showAlert(this,
-                        getString(R.string.error_copy_failed));
-            }
-        } else if (v.getId() == R.id.btn_run_tests) {
-            Intent myIntent = new Intent(this, TestActivity.class);
-            startActivity(myIntent);
-        } else if (v.getId() == R.id.btn_browse_data) {
-            Intent myIntent = new Intent(this, TableListActivity.class);
-            startActivity(myIntent);
-        } else if (v.getId() == R.id.btn_map) {
-            //Intent myIntent = new Intent(this, MappingActivity.class);
-            //startActivity(myIntent);
-            meineMethode();
-        }
-        */
         if (v.getId() == R.id.btnForTracking) {
             System.out.println("Track geklickt");
         }
         if (v.getId() == R.id.swtForCreatePoints) {
+
+
+
             System.out.println("Switch geschaltet");
         }
     }
@@ -352,10 +336,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return sb.toString();
     }
 
-    public void createSpatialiteDatabase() {
 
-
-    }
 }
 
 

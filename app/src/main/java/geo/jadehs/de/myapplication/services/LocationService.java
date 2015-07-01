@@ -7,17 +7,20 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
+
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import geo.jadehs.de.myapplication.R;
 import geo.jadehs.de.myapplication.activities.MainActivity;
+import geo.jadehs.de.myapplication.offlinedatabase.SpatialiteDatabase;
+
 
 /**
  * Created by Maik on 30.06.2015.
@@ -28,13 +31,13 @@ public class LocationService extends Service {
     private static final String TAG = LocationService.class.getSimpleName();
 
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 10000;
-    private static final float LOCATION_DISTANCE = 0;
+    private static final int LOCATION_INTERVAL = 5000;
+    private static final float LOCATION_DISTANCE = 5;
 
 
     private NotificationManager mNM;
     private LocationListener mLocationListeners = new LocationListener(LocationManager.GPS_PROVIDER);
-
+    private String trackName;
 
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
@@ -51,11 +54,16 @@ public class LocationService extends Service {
 
         @Override
         public void onLocationChanged(Location location) {
-            Toast.makeText(getApplicationContext(), "location changed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "location changed!" + location.toString(), Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, "onLocationChanged: " + location);
             System.out.println(location.toString());
             mLastLocation.set(location);
+            SpatialiteDatabase db = SpatialiteDatabase.getInstance(getApplicationContext());
+
+
+            db.insertPointSMT(trackName, Float.toString(location.getSpeed()),
+                    Long.toString(location.getTime()), location.getLatitude(), location.getLongitude());
         }
 
         @Override
@@ -92,6 +100,8 @@ public class LocationService extends Service {
     public void onCreate() {
         System.out.println("onCreate des LocationServices aufgerufen");
         Log.d(TAG, "onCreate");
+
+
         mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         initializeLocationManager();
@@ -125,6 +135,8 @@ public class LocationService extends Service {
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
         return START_STICKY;
+
+
     }
 
     @Override
@@ -155,6 +167,10 @@ public class LocationService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+
+        trackName = intent.getExtras().getString("Trackname");
+        Toast.makeText(this, trackName, Toast.LENGTH_LONG).show();
+
         return null;
     }
 

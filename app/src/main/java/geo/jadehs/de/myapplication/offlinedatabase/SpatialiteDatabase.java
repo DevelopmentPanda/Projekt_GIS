@@ -3,6 +3,7 @@ package geo.jadehs.de.myapplication.offlinedatabase;
 import android.content.Context;
 
 import android.database.sqlite.SQLiteStatement;
+import android.widget.Toast;
 
 
 import java.io.FileNotFoundException;
@@ -11,8 +12,8 @@ import geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 import jsqlite.*;
 import jsqlite.Exception;
-import com.vividsolutions.jts.geom.*;
 
+import com.vividsolutions.jts.geom.*;
 
 
 import static geo.jadehs.de.myapplication.offlinedatabasetables.TrackingTable.*;
@@ -77,7 +78,7 @@ public class SpatialiteDatabase {
 
             createDefaultTable();
             createSpatialiteColumns();
-            insertSMT("Track1", "Speed", "zeit", 2, 3);
+            // insertPointSMT("Track1", "Speed", "zeit", 2, 3);
             getSomeShit();
 
 
@@ -101,6 +102,7 @@ public class SpatialiteDatabase {
 
     }
 
+    // Testmethode zum Ausgeben von vorhandenen Datenbankeintraegen
     private void getSomeShit() throws Exception {
 
         Stmt stmt = null;
@@ -112,7 +114,7 @@ public class SpatialiteDatabase {
                 String tableName = stmt.column_string(0);
                 String type = stmt.column_string(1);
                 String srid = stmt.column_string(2);
-              Geometry mygeometry;
+                Geometry mygeometry;
 
                 System.out.println(tableName + " ....." + type + "......" + srid);
 
@@ -153,12 +155,15 @@ public class SpatialiteDatabase {
 
     }
 
-    private void insertSMT(String trackname, String speed, String timestamp, double lat, double lon) {
+    public void insertPointSMT(String trackname, String speed, String timestamp, double lat, double lon) {
 
 
         try {
-            System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));");
+         //   System.out.println(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));");
+
             db.exec(STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));", cb);
+            Toast.makeText(context, "Punkt in DB gespeichert!!!" +
+                    STMT_INSERT_TRACK + "(" + "'" + trackname + "'" + "," + "'" + speed + "'" + "," + "'" + timestamp + "'," + "GeomFromText('POINT(" + lat + " " + lon + ")', " + 4258 + "));", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
