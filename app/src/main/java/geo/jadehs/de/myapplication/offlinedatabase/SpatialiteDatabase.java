@@ -104,7 +104,15 @@ public class SpatialiteDatabase {
 
     public Stmt getTrackPoints(String trackname) {
         Stmt result = null;
-        
+
+        try {
+            result = db
+                    .prepare("SELECT X(gpsposition), Y(gpsposition) FROM trackingtable WHERE trackname = '"+ trackname+"' ;");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         return result;
     }
 

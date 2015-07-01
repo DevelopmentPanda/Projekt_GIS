@@ -30,13 +30,11 @@ import geo.jadehs.de.myapplication.offlinedatabase.SpatialiteDatabase;
 import geo.jadehs.de.myapplication.services.LocationService;
 import geo.jadehs.de.myapplication.utilities.ActivityHelper;
 
-import jsqlite.Callback;
-
-import jsqlite.Stmt;
-import jsqlite.TableResult;
+import jsqlite.*;
 
 
 import java.io.File;
+import java.lang.Exception;
 import java.util.Arrays;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -48,7 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getName();
     private Switch mySwitch;
     private EditText edtCreateName;
-    private  SpatialiteDatabase db;
+    private SpatialiteDatabase db;
     GoogleMap googleMap;
 
     // AB HIER TEST TEST TEST
@@ -91,7 +89,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // class name because we want a specific service implementation that
         // we know will be running in our own process (and thus won't be
         // supporting component replacement by other applications).
-        Intent i = new Intent(this,LocationService.class);
+        Intent i = new Intent(this, LocationService.class);
         i.putExtra("Trackname", edtCreateName.getText().toString());
 
         bindService(i, mConnection, Context.BIND_AUTO_CREATE);
@@ -127,11 +125,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 if (isChecked) {
                     System.out.println("Switch is currently ON");
-                    if(!edtCreateName.getText().toString().isEmpty()) {
+                    if (!edtCreateName.getText().toString().isEmpty()) {
                         doBindService();
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(),"Bitte Tracknamen eingeben", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Bitte Tracknamen eingeben", Toast.LENGTH_SHORT).show();
                         mySwitch.setChecked(false);
                     }
 
@@ -165,7 +162,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         }
         if (v.getId() == R.id.swtForCreatePoints) {
-
 
 
             System.out.println("Switch geschaltet");
@@ -204,13 +200,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     private void addMarker() {
 
+
         /** Make sure that the map has been initialised **/
         if (null != googleMap) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(0, 0))
-                            .title("Marker")
-                            .draggable(true)
-            );
+
+
+            Stmt stmt = db.getTrackPoints("Demotrack");
+
+
+            try {
+                while (stmt.step()) {
+                    googleMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(stmt.column_double(0), stmt.column_double(1)))
+                                    .title("Marker")
+                                    .draggable(false)
+                    );
+                }
+            } catch (jsqlite.Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
